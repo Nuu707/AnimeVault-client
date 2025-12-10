@@ -1,0 +1,112 @@
+/* ---------------------------- */
+/* ABOUT PAGE — NEON GLASS COMPACT */
+/* ---------------------------- */
+
+.about-section {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+/* ---------------------------- */
+/* TÍTULO */
+/* ---------------------------- */
+.about-section h1 {
+  font-size: 2.4rem;          /* un pelín más pequeño */
+  font-weight: 900;
+
+  color: var(--color-primary);
+
+  text-shadow:
+    0 0 6px rgba(4, 251, 195, 0.22),
+    0 0 14px rgba(4, 251, 195, 0.10);
+
+  margin-bottom: 20px;
+  letter-spacing: 0.25px;
+}
+
+/* ---------------------------- */
+/* PÁRRAFOS */
+/* ---------------------------- */
+.about-section p {
+  line-height: 1.7;
+  margin-bottom: 10px;
+
+  font-size: 1.02rem;         /* ligeramente más pequeño */
+  color: var(--text);
+  opacity: 0.9;
+}
+
+/* ---------------------------- */
+/* CARDS — tamaño compacto */
+/* ---------------------------- */
+.about-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); /* ✅ caben 3 */
+  gap: 20px;                 /* gap más pequeño */
+  margin-top: 16px;
+}
+
+.about-card {
+  padding: 20px 16px;        /* compactado */
+  text-align: center;
+
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(8px);
+
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    0 2px 6px rgba(0,0,0,0.10),
+    inset 0 0 6px rgba(4,251,195,0.04);
+
+  transition: 0.25s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 0 12px rgba(4,251,195,0.15),
+    inset 0 0 6px rgba(4,251,195,0.05);
+
+  border-color: rgba(4,251,195,0.28);
+}
+
+/* ---------------------------- */
+/* TITULOS DE CARD */
+/* ---------------------------- */
+.about-card h3 {
+  font-size: 1.25rem;         /* más pequeño */
+  font-weight: 800;
+
+  color: var(--color-primary);
+
+  text-shadow: 0 0 4px rgba(4,251,195,0.15);
+
+  margin-bottom: 10px;
+}
+
+/* ---------------------------- */
+/* TEXTO DE CARD */
+/* ---------------------------- */
+.about-card p {
+  font-size: 0.92rem;         /* compactado */
+  color: var(--text);
+  opacity: 0.8;
+}
+
+/* ---------------------------- */
+/* RESPONSIVE */
+/* ---------------------------- */
+@media screen and (max-width: 480px) {
+  .about-section h1 {
+    font-size: 2rem;
+  }
+
+  .about-section p {
+    font-size: 0.95rem;
+  }
+}

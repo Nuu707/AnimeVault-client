@@ -1,0 +1,27 @@
+/* ⚙️ FOOTER */
+.footer {
+  padding: 18px 0;
+  margin-top: 28px;
+  border-top: 1px solid rgba(0, 230, 137, 0.2);
+  background: transparent;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.footer a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+
+.footer a:hover {
+  color: var(--color-accent);
+  text-shadow: none;
+}

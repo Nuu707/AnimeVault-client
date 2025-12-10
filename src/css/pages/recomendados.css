@@ -1,0 +1,164 @@
+/* ===========================================================
+   🎯 SECCIÓN RECOMENDADOS / NUEVOS ANIMES - Horizontal 5x
+=========================================================== */
+
+/* Contenedor general de cada sección */
+.section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto; /* centra horizontalmente */
+  padding: 40px 16px;
+  box-sizing: border-box;
+}
+
+/* Encabezado de sección (titulo + link) */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.section-header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-shadow: 0 0 8px rgba(0, 230, 137, 0.2);
+}
+
+.link-muted {
+  color: var(--muted);
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+.link-muted:hover {
+  color: var(--color-accent);
+}
+
+/* Grid general (para otras secciones si se necesita) */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+  justify-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Tarjetas dentro del grid */
+.grid .card {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.grid .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* ===========================================================
+   RECOMENDADOS - Una fila horizontal con 5 elementos
+=========================================================== */
+#anime-grid {
+  display: flex;
+  gap: 8px; /* reducido para que 5 tarjetas entren en la fila */
+  justify-content: flex-start;
+  overflow-x: auto; 
+  padding-bottom: 8px;
+  scroll-behavior: smooth;
+}
+
+#anime-grid .card {
+  flex: 0 0 calc(20% - 6px);  /* 5 tarjetas por fila */
+  max-width: 220px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(0,0,0,0.6);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#anime-grid .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 16px rgba(4, 251, 195, 0.4);
+}
+
+#anime-grid .card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+#anime-grid .card-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#anime-grid .card-body h3 {
+  font-size: 16px;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+#anime-grid .card-body p {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Scrollbar estilizada */
+#anime-grid::-webkit-scrollbar {
+  height: 8px;
+}
+
+#anime-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#anime-grid::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary);
+  border-radius: 4px;
+}
+
+/* Ajustes responsive */
+@media (max-width: 1024px) {
+  #anime-grid .card {
+    flex: 0 0 25%; /* 4 cards por fila en pantallas medianas */
+  }
+}
+
+@media (max-width: 768px) {
+  #anime-grid .card {
+    flex: 0 0 45%; /* 2 cards por fila en tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  #anime-grid .card {
+    flex: 0 0 80%; /* 1 card por fila en móviles */
+  }
+}
+
+/* Responsive de la sección */
+@media (max-width: 768px) {
+  .section {
+    padding: 24px 12px;
+  }
+
+  .section-header h2 {
+    font-size: 1.4rem;
+  }
+
+  .grid {
+    gap: 16px;
+  }
+}

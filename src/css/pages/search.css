@@ -1,0 +1,92 @@
+/* Contenedor de la barra de búsqueda (debajo del navbar) */
+.search-bar-container {
+  display: none; /* React controla esto con visible */
+  width: 90%;
+  max-width: 700px;
+  margin: 10px auto 20px auto; /* separación del navbar */
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 50;
+}
+
+/* aparece cuando React lo monta */
+.search-bar-container.visible {
+  display: block;
+  animation: fadeIn 0.25s ease forwards;
+}
+
+/* Input de búsqueda */
+.search-bar {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: var(--radius);
+  border: 2px solid var(--color-primary);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 15px;
+  transition: border 0.3s, box-shadow 0.3s, transform 0.2s, background 0.3s, color 0.3s;
+  box-sizing: border-box;
+}
+
+/* Input foco */
+.search-bar:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 12px rgba(4, 251, 195, 0.4);
+  outline: none;
+  transform: scale(1.02);
+  background: var(--surface);
+}
+
+/* Modo oscuro */
+body.dark-mode .search-bar {
+  background: var(--surface);
+  color: var(--text);
+  border: 2px solid var(--color-primary);
+}
+
+body.dark-mode .search-bar:focus {
+  background: var(--surface);
+}
+
+/* Lupa en navbar */
+.search-icon {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s ease;
+  margin-right: 12px; /* separación del resto del menú */
+}
+
+.search-icon svg {
+  width: 26px;
+  height: 26px;
+  color: var(--color-primary);
+  transition: color 0.25s, transform 0.25s, filter 0.25s;
+}
+
+.search-icon:hover svg {
+  color: var(--color-accent);
+  filter: drop-shadow(0 0 8px var(--color-accent));
+  transform: scale(1.15);
+}
+
+.search-icon:active svg {
+  transform: scale(0.95);
+}
+
+/* animación de aparición */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

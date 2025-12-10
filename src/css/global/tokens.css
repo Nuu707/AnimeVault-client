@@ -1,0 +1,147 @@
+/* ===========================================================
+   🌞 LIGHT MODE — SKY AURORA (INFINITO, SIN CORTES)
+   =========================================================== */
+
+:root {
+
+  --color-primary: #40b6e1;
+  --color-accent:  #56acde;
+
+  --bg-base: linear-gradient(
+      to bottom,
+      #fde7c5,
+      #ffd7e8,
+      #f3d7ff,
+      #cde6ff,
+      #a8d4ff
+  );
+
+  --bg-glow: radial-gradient(
+      circle at 30% 15%,
+      rgba(255,240,200,.55),
+      rgba(255,200,220,.30) 25%,
+      rgba(200,220,255,.20) 55%,
+      rgba(160,210,255,.10) 75%,
+      transparent 100%
+  );
+
+  --bg: var(--bg-base), var(--bg-glow);
+
+  --surface: rgba(240,250,255,.55);
+
+  --text: #083044;
+  --muted: #5c8fa8;
+
+  --radius: 14px;
+  --gap: 16px;
+
+  /* token específico para el texto de info del catálogo (overlay) */ 
+  --catalog-info-text: #ffffff;
+  
+}
+
+
+
+/* ===========================================================
+   🌑 DARK MODE — VARIABLES REEMPLAZANDO TODO
+   =========================================================== */
+
+body.dark-mode {
+  --color-primary: #8d2990;
+  --color-accent:  #851fd8;
+
+  --bg: #0B0A14;
+  --surface: #141423;
+
+  --text: #EDE9F6;
+  --muted: #B6AEC6;
+
+  --radius: 12px;
+
+  --fx-cyan: rgba(84,172,191,.25);
+  --fx-purple: rgba(123,51,126,.22);
+}
+
+
+/* ===========================================================
+   💠 BASE BODY — SIN FONDOS
+   =========================================================== */
+
+body {
+  position: relative;
+  overflow-x: hidden;
+
+  /* NO BACKGROUND — solo capas */
+  background: transparent !important;
+}
+
+
+/* ===========================================================
+   🌞 LIGHT MODE — capa exclusiva
+   =========================================================== */
+
+body:not(.dark-mode)::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  z-index: -999;
+
+  background: var(--bg);
+  background-size: cover;
+
+  pointer-events: none;
+}
+
+
+/* ===========================================================
+   🌑 DARK MODE — nebulas + fondo oscuro
+   =========================================================== */
+
+body.dark-mode::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  z-index: -10;
+
+  background: var(--bg); /* oscuro sólido */
+}
+
+body.dark-mode::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  z-index: -9;
+
+  mix-blend-mode: screen;
+  filter: blur(55px);
+  opacity: .6;
+
+  animation: nebula 14s ease-in-out infinite alternate;
+
+  background:
+      radial-gradient(circle at 20% 30%, var(--fx-cyan), transparent 55%),
+      radial-gradient(circle at 80% 70%, var(--fx-purple), transparent 55%);
+}
+
+@keyframes nebula {
+  0% { transform: translate(-3%, -3%) scale(1); }
+  100% { transform: translate(3%, 3%) scale(1.14); }
+}
+
+
+/* ===========================================================
+   🔗 LINKS
+   =========================================================== */
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+a:hover {
+  color: var(--color-accent);
+}

@@ -1,0 +1,628 @@
+/* ============================================================
+   🗂 CATALOGO - Catalogo general (Optimizado)
+============================================================ */
+/* Centrar título de la sección */
+.section-header {
+  display: flex;
+  flex-direction: column; /* apila verticalmente */
+  align-items: center;    /* centra horizontal */
+  text-align: center;     /* centra texto interno */
+  margin-bottom: 24px;
+  margin-top: 24px;    /* separa del contenido debajo */
+}
+
+.section-header h2 {
+  margin: 0 0 12px 0; /* espacio debajo del título */
+  font-size: 20px;
+  color: var(--color-accent);
+  text-shadow: 0 0 8px rgba(4, 251, 195, 0.5); /* glow Emerald Neon */
+}
+
+/* ------------------------------
+   Grid principal del catálogo
+------------------------------ */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* ------------------------------
+   Cards compactas (Catalog Grid)
+------------------------------ */
+.catalog-grid .card-compact {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  background: var(--surface);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+.catalog-grid .card-compact:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 12px rgba(4, 251, 195, 0.4);
+}
+
+.catalog-grid .card-compact img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlay de información */
+.catalog-grid .card-compact .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: inherit;
+  color: #e5e5e5;
+}
+
+.catalog-grid .card-compact:hover .overlay {
+  opacity: 1;
+}
+
+/* Textos y botones dentro del overlay */
+.catalog-grid .card-compact .overlay h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+   color: var(--catalog-info-text);;
+}
+
+.catalog-grid .card-compact .overlay .description,
+.catalog-grid .card-compact .overlay .more,
+.catalog-grid .card-compact .overlay .genre,
+.catalog-grid .card-compact .overlay .rating {
+  margin: 4px 0;
+}
+
+.catalog-grid .card-compact .overlay .description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 14px;
+   color: var(--catalog-info-text);;
+}
+
+.catalog-grid .card-compact .overlay .more {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-accent);
+  cursor: pointer;
+}
+
+.catalog-grid .card-compact .overlay .more:hover {
+  text-shadow: 0 0 8px var(--color-accent);
+}
+
+/* ------------------------------
+   Scroll horizontal (h-scroll) - nuevos animes, chips
+------------------------------ */
+.h-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+/* Cards compactas (h-scroll) */
+.h-scroll .card-compact {
+  flex: 0 0 auto;
+  width: 120px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.h-scroll .card-compact:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 12px rgba(4, 251, 195, 0.4);
+}
+
+.h-scroll .card-compact img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+.h-scroll .card-compact .description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+  color: var(--muted);
+  margin: 6px 0;
+}
+
+.h-scroll .card-compact .more {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-accent);
+  cursor: pointer;
+}
+
+.h-scroll .card-compact .more:hover {
+  text-shadow: 0 0 6px var(--color-accent);
+}
+
+/* ------------------------------
+   Chips de filtrado
+------------------------------ */
+.chips-section {
+  padding: 8px 0;
+}
+
+.chips-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.chip {
+  flex: 0 0 auto;
+  padding: 8px 12px;
+  background: var(--surface);
+  border-radius: 999px;
+  border: 1px solid rgba(0, 230, 137, 0.15);
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.chip.active {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 0 8px rgba(4, 251, 195, 0.5);
+}
+
+.chip:hover {
+  background: rgba(4, 251, 195, 0.1);
+}
+
+/* ------------------------------
+   Grid grande / tarjetas grandes
+------------------------------ */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.card {
+  display: flex;
+  gap: 14px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 16px rgba(4, 251, 195, 0.4);
+}
+
+.card img {
+  width: 130px;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-body h3 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--color-primary);
+}
+
+.card-desc {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.tag {
+  background: rgba(4, 251, 195, 0.1);
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--color-primary);
+}
+
+.rating {
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ============================================================
+   🎨 Filtro de géneros - Emerald Neon Style
+============================================================ */
+#filtro-genero {
+  appearance: none; /* quitar estilo por defecto */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  background-color: var(--surface);
+  border: 2px solid rgba(4, 251, 195, 0.4);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 180px;
+  position: relative;
+  margin-bottom: 16px; /* espacio debajo del select */
+}
+
+/* Glow al hacer hover */
+#filtro-genero:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 8px rgba(4, 251, 195, 0.5);
+}
+
+/* Glow al hacer focus */
+#filtro-genero:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 12px rgba(4, 251, 195, 0.7);
+}
+
+/* Flecha personalizada */
+#filtro-genero::-ms-expand {
+  display: none;
+}
+
+#filtro-genero::after {
+  content: "▼";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--color-accent);
+  font-size: 10px;
+}
+
+/* Opciones internas */
+#filtro-genero option {
+  background-color: var(--surface);
+  color: var(--text);
+  padding: 8px;
+}
+
+/* ============================================================
+   CATALOGO - Vista List (Horizontal con columnas)
+============================================================ */
+
+/* Contenedor de lista */
+.catalog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card tipo lista */
+.catalog-list .card-list {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch; /* para que los elementos ocupen altura completa */
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.catalog-list .card-list:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 16px rgba(4, 251, 195, 0.4);
+}
+
+/* Imagen a la izquierda */
+.catalog-list .card-list img {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Info central: título + descripción */
+.catalog-list .card-list .overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  padding: 12px 16px;
+  color: var(--catalog-info-text);
+  flex: 1;
+  gap: 8px;
+}
+
+.catalog-list .card-list .overlay h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--catalog-info-text);
+}
+
+.catalog-list .card-list .overlay .description {
+  margin: 0;
+  font-size: 14px;
+  color: var(--catalog-info-text);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Info derecha: rating + tag */
+.catalog-list .card-list .extra-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 12px 16px;
+  gap: 6px;
+  min-width: 80px; /* espacio mínimo */
+}
+
+.catalog-list .card-list .extra-info .tag {
+  background: rgba(4, 251, 195, 0.1);
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--color-primary);
+}
+
+.catalog-list .card-list .extra-info .rating {
+  font-weight: 700;
+  color: var(--text);
+}
+/* ==============================
+   Texto de descripciones modo día
+   Solo afecta al catálogo
+============================== */
+body:not(.dark-mode) .catalog-grid .card-compact .overlay,
+body:not(.dark-mode) .catalog-list .card-list .overlay {
+    color: #000; /* negro para modo día */
+}
+
+/* Opcional: también ajustar 'more', tag y rating si quieres */
+body:not(.dark-mode) .catalog-grid .card-compact .overlay .more,
+body:not(.dark-mode) .catalog-list .card-list .overlay .more {
+    color: var(--color-accent);
+}
+
+body:not(.dark-mode) .catalog-list .card-list .extra-info .tag,
+body:not(.dark-mode) .catalog-list .card-list .extra-info .rating {
+    color: #000; /* negro en modo día */
+}
+
+/* ==============================
+   Texto negro solo para la vista LIST en modo día
+============================== */
+body:not(.dark-mode) .catalog-list .card-list .overlay {
+    color: #000; /* cambia título y descripción a negro */
+}
+
+/* Asegurar que 'more', 'tag' y 'rating' también sean visibles */
+body:not(.dark-mode) .catalog-list .card-list .overlay .more,
+body:not(.dark-mode) .catalog-list .card-list .overlay .tag,
+body:not(.dark-mode) .catalog-list .card-list .overlay .rating {
+    color: #000;
+}
+/* ==============================
+   Texto negro solo para la vista LIST en modo día
+============================== */
+body:not(.dark-mode) .catalog-list .card-list .overlay,
+body:not(.dark-mode) .catalog-list .card-list .overlay h3,
+body:not(.dark-mode) .catalog-list .card-list .overlay .description {
+    color: #000 !important; /* fuerza el negro sobre otros estilos */
+}
+
+/* Asegurar que 'more', 'tag' y 'rating' también sean visibles */
+body:not(.dark-mode) .catalog-list .card-list .overlay .more,
+body:not(.dark-mode) .catalog-list .card-list .overlay .tag,
+body:not(.dark-mode) .catalog-list .card-list .overlay .rating {
+    color: #000 !important;
+}
+/* ==============================
+   Texto negro solo para la vista LIST en modo día
+============================= */
+body:not(.dark-mode) .catalog-list .card-list .overlay,
+body:not(.dark-mode) .catalog-list .card-list .overlay .description {
+    color: #000 !important; /* texto negro principal */
+    position: relative;
+}
+
+/* Título con efecto Emerald Neon */
+body:not(.dark-mode) .catalog-list .card-list .overlay h3 {
+    color: #000 !important;
+    text-shadow: 0 0 4px #04fbc3, 0 0 8px #04fbc3; /* glow verde neón */
+    margin-bottom: 6px;
+}
+
+/* Descripción con un ligero resplandor */
+body:not(.dark-mode) .catalog-list .card-list .overlay .description {
+    text-shadow: 0 0 2px #04fbc3; /* suave resplandor */
+    line-height: 1.4;
+}
+
+/* "Leer más..." con neon */
+body:not(.dark-mode) .catalog-list .card-list .overlay .more {
+    color: #04fbc3 !important;
+    text-shadow: 0 0 4px #04fbc3, 0 0 6px #04fbc3;
+    font-weight: 600;
+}
+
+/* Tag y rating con borde/neón */
+body:not(.dark-mode) .catalog-list .card-list .overlay .tag,
+body:not(.dark-mode) .catalog-list .card-list .overlay .rating {
+    color: #04fbc3 !important;
+    border: 1px solid #04fbc3;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 12px;
+    text-shadow: 0 0 2px #04fbc3;
+    margin-right: 4px;
+}
+
+/* Añadir un pequeño glow al pasar el mouse sobre la card */
+body:not(.dark-mode) .catalog-list .card-list:hover .overlay h3,
+body:not(.dark-mode) .catalog-list .card-list:hover .overlay .description {
+    text-shadow: 0 0 6px #04fbc3, 0 0 10px #04fbc3;
+}
+
+/* ============================================================
+   🎨 Estilo Emerald Neon para filtros
+============================================================ */
+
+/* Contenedor de filtros */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+/* Selects (género y orden) */
+.filters select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  background-color: var(--surface);
+  border: 2px solid rgba(4, 251, 195, 0.4);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 160px;
+  position: relative;
+}
+
+/* Glow al hover y focus */
+.filters select:hover,
+.filters select:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 8px rgba(4, 251, 195, 0.5);
+  outline: none;
+}
+
+/* Flecha del select */
+.filters select::after {
+  content: "▼";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--color-accent);
+  font-size: 10px;
+}
+
+/* Botones toggle de vista */
+.filters button {
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid rgba(4, 251, 195, 0.4);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Botón activo con glow */
+.filters button.active {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 0 8px rgba(4, 251, 195, 0.6);
+  border-color: transparent;
+}
+
+/* Hover en botones */
+.filters button:hover {
+  box-shadow: 0 0 6px rgba(4, 251, 195, 0.5);
+  border-color: var(--color-accent);
+}
+
+/* Labels de filtros */
+.filters label {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text);
+  margin-right: 6px;
+}
+/* src/styles.css o tu archivo de estilos global */
+body.dark-mode .fav-btn svg,
+body.dark-mode .detail-tags svg,
+body.dark-mode .detail-actions svg {
+  fill: white; /* Cambia el color de los SVG a blanco */
+}
+
+body.dark-mode .btn-primary svg {
+  fill: white; /* Si tienes íconos en botones */
+}
+
+/* Toggle de vista (grid/list) */
+.view-toggle {
+  color: #1f1f1f; /* color por defecto en modo claro */
+  transition: color 0.3s ease;
+}
+
+body.dark-mode .view-toggle {
+  color: #fff; /* color blanco en modo oscuro */
+}
+
+/* Asegúrate de que el SVG herede el color */
+.view-toggle svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}

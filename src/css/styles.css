@@ -1,0 +1,25 @@
+/* ===========================================================
+   ✅ ARCHIVO PRINCIPAL: styles.css — Emerald Neon Edition
+   =========================================================== */
+
+/* GLOBAL CSS */
+@import "./global/reset.css";
+@import "./global/tokens.css";
+@import "./global/layout.css";
+@import "./global/navbar.css";
+@import "./global/footer.css";
+@import "./global/responsive.css";
+
+/* PAGE CSS */
+@import "./pages/hero.css";
+@import "./pages/catalog.css";
+@import "./pages/detail.css";
+@import "./pages/auth.css";
+@import "./pages/dashboard.css";
+@import "./pages/friends.css";
+@import "./pages/my-animes.css";
+@import "./pages/contact.css";
+@import "./pages/about.css";
+@import "./pages/search.css";
+@import "./pages/404.css";
+@import "./pages/recomendados.css";

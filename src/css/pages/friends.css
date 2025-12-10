@@ -1,0 +1,317 @@
+/* ==========================================================
+   FRIEND LIST PAGE — CLEAN NEON GLASS DESIGN
+========================================================== */
+
+/* ------------------------------- */
+/* CONTAINER GENERAL */
+/* ------------------------------- */
+
+.friend-list {
+  max-width: 1100px;
+  margin: 60px auto 80px auto;
+  padding: 0 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+/* ------------------------------- */
+/* HEADERS */
+/* ------------------------------- */
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+.section-header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-accent);
+  letter-spacing: .4px;
+}
+
+/* Botón pequeño */
+.section-header .btn-primary.small {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 8px;
+
+  opacity: .95;
+  transition: .18s ease;
+}
+
+.section-header .btn-primary.small:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+/* ------------------------------- */
+/* BUSCADOR */
+/* ------------------------------- */
+
+.friend-search {
+  display: flex;
+  gap: 12px;
+
+  max-width: 600px;
+  width: 100%;
+}
+
+.friend-search input {
+  flex: 1;
+
+  padding: 12px 14px;
+  border-radius: 10px;
+
+  background: var(--color-bg-secondary);
+  border: 1px solid rgba(255,255,255,.08);
+
+  color: white;
+
+  transition: .2s ease;
+}
+
+.friend-search input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  background: var(--color-bg-tertiary);
+}
+
+/* ------------------------------- */
+/* GRID */
+/* ------------------------------- */
+
+.friend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+}
+
+/* ------------------------------- */
+/* TARJETA DE AMIGO */
+/* ------------------------------- */
+
+.friend-card {
+  background: var(--color-bg-secondary);
+  border-radius: 18px;
+
+  padding: 20px 16px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  border: 1px solid rgba(255,255,255,.06);
+
+  box-shadow: 
+    0 4px 12px rgba(0,0,0,.18),
+    inset 0 0 8px rgba(4,251,195,.03);
+
+  transition: .25s ease;
+}
+
+.friend-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 10px 26px rgba(0,0,0,.25),
+    inset 0 0 6px rgba(4,251,195,.05);
+}
+
+/* Avatar */
+.friend-card img {
+  width: 110px;
+  height: 110px;
+
+  border-radius: 50%;
+  object-fit: cover;
+
+  border: 3px solid var(--color-accent);
+}
+
+/* Nombre */
+.friend-card h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+/* Estado */
+.friend-status {
+  font-size: 14px;
+  opacity: .75;
+}
+
+/* ------------------------------- */
+/* BOTONES EN TARJETA */
+/* ------------------------------- */
+
+.card-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-primary,
+.btn-danger {
+  padding: 8px 14px;
+  border-radius: 8px;
+
+  font-size: 14px;
+  cursor: pointer;
+
+  transition: .2s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+}
+
+.btn-danger {
+  background: rgba(255,60,60,.12);
+  border: 1px solid rgba(255,80,80,.6);
+  color: #ff6b6b;
+}
+
+.btn-danger:hover {
+  transform: scale(1.05);
+  background: rgba(255,60,60,.2);
+}
+
+/* ------------------------------- */
+/* FRIEND REQUESTS */
+/* ------------------------------- */
+
+.friend-requests-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.friend-request-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 14px 16px;
+
+  background: var(--color-bg-secondary);
+  border-radius: 16px;
+
+  border: 1px solid rgba(255,255,255,.06);
+
+  box-shadow: 0 4px 12px rgba(0,0,0,.18);
+
+  transition: .25s ease;
+}
+
+.friend-request-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.25);
+}
+
+.friend-request-card .friend-avatar {
+  width: 70px;
+  height: 70px;
+
+  border-radius: 50%;
+  object-fit: cover;
+
+  border: 2px solid var(--color-accent);
+}
+
+.friend-request-card p {
+  flex: 1;
+
+  font-size: 15px;
+  line-height: 1.35;
+
+  color: var(--color-text);
+}
+
+.friend-request-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Aceptar */
+.btn-accept {
+  padding: 8px 12px;
+  border-radius: 8px;
+
+  background: rgba(0,255,120,.15);
+  border: 1px solid rgba(0,255,120,.55);
+
+  color: #3aff9b;
+
+  transition: .2s ease;
+}
+
+.btn-accept:hover {
+  transform: scale(1.05);
+  background: rgba(0,255,120,.25);
+}
+
+/* Rechazar */
+.btn-reject {
+  padding: 8px 12px;
+  border-radius: 8px;
+
+  background: rgba(255,60,60,.12);
+  border: 1px solid rgba(255,60,60,.7);
+
+  color: #ff6b6b;
+
+  transition: .2s ease;
+}
+
+.btn-reject:hover {
+  transform: scale(1.05);
+  background: rgba(255,60,60,.22);
+}
+
+/* ------------------------------- */
+/* RESPONSIVE */
+/* ------------------------------- */
+
+@media (max-width: 700px) {
+  .friend-search {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .friend-list {
+    gap: 26px;
+  }
+
+  .friend-request-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .friend-request-buttons {
+    justify-content: center;
+  }
+
+  .friend-request-card .friend-avatar {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+body:not(.dark-mode) .friend-search input {
+  color: #000 !important;
+}

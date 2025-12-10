@@ -1,0 +1,45 @@
+/* 🔧 Reset básico + fuente Orbitron */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+/* ==============================
+   🧱 RESET
+============================== */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+/* ==============================
+   🌐 BASE TYPOGRAPHY
+============================== */
+body {
+  /* Texto normal → Inter (legible) */
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  background: var(--bg);
+  color: var(--text);
+
+  line-height: 1.4;
+  font-size: 14px;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==============================
+   🚀 TITLES — Orbitron (futurista / anime)
+============================== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+}

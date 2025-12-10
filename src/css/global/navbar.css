@@ -1,0 +1,144 @@
+/* ===========================================================
+   🧱 CONTENEDOR GLOBAL
+   =========================================================== */
+.container {
+  padding: 0 var(--container);
+  margin: 0 auto;
+  max-width: 1100px;
+}
+
+/* ===========================================================
+   🧭 TOPBAR / NAVBAR — AESTHETIC NEON / GLASS
+   =========================================================== */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  /* glass + neon */
+  backdrop-filter: blur(12px);
+  background: color-mix(in lab, var(--surface), transparent 80%);
+  border-bottom: 1px solid color-mix(in lab, var(--color-primary), transparent 60%);
+
+  transition: background .3s ease,
+              backdrop-filter .3s ease,
+              box-shadow .3s ease;
+}
+
+/* Transparent hero (si lo usas) */
+.topbar.transparent {
+  background: color-mix(in lab, var(--surface), transparent 70%);
+  box-shadow: none;
+}
+
+/* Scroll → más sólido + glow */
+.topbar.scrolled {
+  background: color-mix(in lab, var(--surface), transparent 20%);
+  box-shadow:
+    0 4px 25px color-mix(in lab, var(--color-primary), transparent 70%);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+/* ===========================================================
+   🌟 LOGO — Orbitron con glow
+   =========================================================== */
+.logo a {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+
+  color: var(--color-primary);
+  text-decoration: none;
+
+  /* neon glow */
+  text-shadow:
+    0 0 6px var(--fx-cyan),
+    0 0 14px var(--color-accent);
+
+  transition: color .25s ease, text-shadow .25s ease;
+}
+
+.logo a:hover {
+  color: var(--color-accent);
+  text-shadow:
+    0 0 10px var(--fx-cyan),
+    0 0 20px var(--color-accent);
+}
+
+/* ===========================================================
+   📌 NAVEGACIÓN DESKTOP
+   =========================================================== */
+.nav-desktop {
+  display: none;
+  gap: 12px;
+  align-items: center;
+}
+
+.nav-link,
+.btn-ghost {
+  font-family: "Orbitron", sans-serif;
+  letter-spacing: 0.8px;
+  font-weight: 600;
+}
+
+
+.topbar .nav-link:hover {
+  color: var(--color-accent);
+  text-shadow: 0 0 8px var(--fx-cyan);
+}
+
+/* ===========================================================
+   🟢 BOTONES GHOST — neon outline
+   =========================================================== */
+.btn-ghost {
+  background: transparent;
+
+  /* neon outline basado en tokens */
+  border: 1px solid color-mix(in lab, var(--color-accent), transparent 40%);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+
+  color: var(--text);
+  cursor: pointer;
+
+  transition:
+    background .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease,
+    color .25s ease;
+}
+
+.btn-ghost:hover {
+  color: var(--color-accent);
+  background: color-mix(in lab, var(--color-accent), transparent 80%);
+
+  box-shadow:
+    0 0 8px var(--fx-cyan),
+    inset 0 0 4px var(--fx-cyan);
+
+  border-color: var(--color-accent);
+}
+
+/* ===========================================================
+   🔍 ICONOS (ej. search)
+   =========================================================== */
+.search-icon {
+  background: transparent;
+  border: none;
+  color: var(--text);
+
+  transition: color .2s ease, filter .2s ease;
+}
+
+.search-icon:hover {
+  color: var(--color-accent);
+  filter: drop-shadow(0 0 6px var(--fx-cyan));
+}
