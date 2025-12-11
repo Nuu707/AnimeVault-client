@@ -8,41 +8,37 @@ import fetchAnimes from "../api/animeAPI";
 import { useSearch } from "../context/SearchContext";
 import { useTheme } from "../context/ThemeContext";
 
+const GENRES = [
+  "All", "Action", "Adventure", "Romance", "Comedy", "Drama", "Fantasy",
+  "Horror", "Supernatural", "Superheroes", "Historical", "Slice of Life",
+  "Mecha", "Suspense", "Mystery", "Music", "Sci-Fi"
+];
+
 const Gallery = () => {
   const { theme, toggleTheme } = useTheme();
-  const [searchVisible, setSearchVisible] = useState(false);
-  const [animes, setAnimes] = useState([]);
-  const [genreFilter, setGenreFilter] = useState("All"); // valor por defecto en inglés
-  const [sortOption, setSortOption] = useState("title-asc");
-  const [viewType, setViewType] = useState("grid");
   const { query } = useSearch();
 
+  const [searchVisible, setSearchVisible] = useState(false);
+  const [animes, setAnimes] = useState([]);
+  const [genreFilter, setGenreFilter] = useState("All");
+  const [sortOption, setSortOption] = useState("title-asc");
+  const [viewType, setViewType] = useState("grid");
+
+  // --- Load all animes ---
   useEffect(() => {
-    fetchAnimes().then((data) => {
-      setAnimes(data);
-    });
+    fetchAnimes().then(setAnimes).catch(console.error);
   }, []);
 
   const toggleSearch = () => setSearchVisible((prev) => !prev);
 
+  // --- Filter, search, and sort animes ---
   const filteredAnimes = animes
-    .filter((anime) =>
-      genreFilter === "All" ? true : anime.genre?.includes(genreFilter)
-    )
-    .filter((anime) =>
-      query
-        ? anime.title.toLowerCase().includes(query.toLowerCase())
-        : true
-    )
+    .filter(a => genreFilter === "All" || a.genre?.includes(genreFilter))
+    .filter(a => !query || a.title.toLowerCase().includes(query.toLowerCase()))
     .sort((a, b) => {
-      switch (sortOption) {
-        case "title-asc":
-          return a.title.localeCompare(b.title);
-        case "title-desc":
-          return b.title.localeCompare(a.title);
-        default:
-          return 0;
-      }
+      if (sortOption === "title-asc") return a.title.localeCompare(b.title);
+      if (sortOption === "title-desc") return b.title.localeCompare(a.title);
+      return 0;
     });
 
   const gridIcon = (
@@ -65,14 +61,14 @@ const Gallery = () => {
         theme={theme}
       />
 
-      <SearchBar visible={searchVisible} placeholder="Search..." />
+      <SearchBar visible={searchVisible} />
 
       <main className="container catalog-section">
         <div className="section-header">
           <h2>Gallery</h2>
 
           <div className="filters">
-            {/* Filtro por género */}
+            {/* Genre Filter */}
             <div className="filter">
               <label htmlFor="genre-filter">Filter by genre:</label>
               <select
@@ -80,27 +76,13 @@ const Gallery = () => {
                 value={genreFilter}
                 onChange={(e) => setGenreFilter(e.target.value)}
               >
-                <option value="All">All</option>
-                <option value="Action">Action</option>
-                <option value="Adventure">Adventure</option>
-                <option value="Romance">Romance</option>
-                <option value="Comedy">Comedy</option>
-                <option value="Drama">Drama</option>
-                <option value="Fantasy">Fantasy</option>
-                <option value="Horror">Horror</option>
-                <option value="Supernatural">Supernatural</option>
-                <option value="Superheroes">Superheroes</option>
-                <option value="Historical">Historical</option>
-                <option value="Slice of Life">Slice of Life</option>
-                <option value="Mecha">Mecha</option>
-                <option value="Suspense">Suspense</option>
-                <option value="Mystery">Mystery</option>
-                <option value="Music">Music</option>
-                <option value="Sci-Fi">Sci-Fi</option>
+                {GENRES.map((genre) => (
+                  <option key={genre} value={genre}>{genre}</option>
+                ))}
               </select>
             </div>
 
-            {/* Ordenar */}
+            {/* Sort */}
             <div className="filter">
               <label htmlFor="sort">Sort by:</label>
               <select
@@ -113,9 +95,8 @@ const Gallery = () => {
               </select>
             </div>
 
-            {/* Vista grid / lista */}
+            {/* View toggle */}
             <div className="filter">
-              <label>View:</label>
               <button
                 className={`view-toggle ${viewType === "grid" ? "active" : ""}`}
                 onClick={() => setViewType("grid")}
@@ -134,7 +115,7 @@ const Gallery = () => {
           </div>
         </div>
 
-        {/* Contenido del catálogo */}
+        {/* Anime catalog */}
         <div className={viewType === "grid" ? "catalog-grid" : "catalog-list"}>
           {filteredAnimes.length > 0 ? (
             filteredAnimes.map((anime) =>
@@ -154,11 +135,7 @@ const Gallery = () => {
                   </Link>
                 </div>
               ) : (
-                <Link
-                  key={anime._id}
-                  to={`/detail/${anime._id}`}
-                  className="card-list"
-                >
+                <Link key={anime._id} to={`/detail/${anime._id}`} className="card-list">
                   <img src={anime.image} alt={anime.title} />
                   <div className="overlay">
                     <h3>{anime.title}</h3>

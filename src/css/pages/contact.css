@@ -194,3 +194,104 @@
   transform: translateY(-2px);
   box-shadow: 0 0 12px rgba(4,251,195,0.35);
 }
+
+/* ===========================================================
+   🌐 CONTACT PAGE — RESPONSIVE
+=========================================================== */
+
+/* --------------------------
+   MÓVILES (max-width: 768px)
+--------------------------- */
+@media (max-width: 768px) {
+  .contact-page {
+    margin: 20px 16px;
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .contact-title {
+    font-size: 1.4rem;
+    padding: 10px 16px;
+  }
+
+  .contact-text {
+    font-size: 0.95rem;
+    margin-bottom: 14px;
+  }
+
+  .contact-form {
+    grid-template-columns: 1fr; /* una sola columna */
+    gap: 12px;
+  }
+
+  .contact-form .form-group.full {
+    grid-column: span 1; /* ocupa toda la columna ahora */
+  }
+
+  .contact-form .btn-primary {
+    grid-column: span 1;
+    padding: 12px;
+  }
+
+  /* Inputs y textarea más cómodos para touch */
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+}
+
+/* --------------------------
+   TABLETS (769px - 1024px)
+--------------------------- */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .contact-page {
+    margin: 30px 20px;
+    padding: 22px;
+  }
+
+  .contact-title {
+    font-size: 1.5rem;
+    padding: 11px 18px;
+  }
+
+  .contact-text {
+    font-size: 1rem;
+    margin-bottom: 16px;
+  }
+
+  .contact-form {
+    grid-template-columns: 1fr 1fr; /* dos columnas */
+    gap: 13px;
+  }
+
+  .contact-form .form-group.full {
+    grid-column: span 2;
+  }
+
+  .contact-form .btn-primary {
+    grid-column: span 2;
+    padding: 13px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.95rem;
+    padding: 11px;
+  }
+}
+
+/* --------------------------
+   Ajustes generales opcionales
+--------------------------- */
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.contact-form .btn-primary {
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}

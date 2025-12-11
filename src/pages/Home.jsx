@@ -10,9 +10,9 @@ import { useSearch } from "../context/SearchContext";
 import { useTheme } from "../context/ThemeContext";
 
 const Home = () => {
-  const { theme, toggleTheme } = useTheme(); // Using ThemeContext
-  const [searchVisible, setSearchVisible] = useState(false);
+  const { theme, toggleTheme } = useTheme();
   const { query } = useSearch();
+  const [searchVisible, setSearchVisible] = useState(false);
   const navigate = useNavigate();
 
   const toggleSearchBar = () => setSearchVisible((prev) => !prev);
@@ -28,13 +28,13 @@ const Home = () => {
       <SearchBar visible={searchVisible} />
 
       <main>
-        {/* Main banner only if there's no search */}
+        {/* Hero banner only if no search query */}
         {!query && <Hero />}
 
-        {/* Anime section,*/}
+        {/* Anime section (filtered by query if present) */}
         <AnimeSection query={query} showLatest={false} />
 
-        {/* About banner */}
+        {/* About call-to-action */}
         {!query && (
           <section
             className="about-banner"

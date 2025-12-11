@@ -5,10 +5,15 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useTheme } from "../context/ThemeContext";
 
+/**
+ * Página de Dashboard
+ * Permite al usuario ver su perfil, editarlo, gestionar lista de animes y amigos.
+ * Si se proporciona un `id` por params, muestra el perfil de otro usuario (solo lectura).
+ */
 const Dashboard = () => {
   const { theme, toggleTheme } = useTheme();
 
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(false); // Estado de edición del perfil
   const [profileData, setProfileData] = useState({
     username: "",
     email: "",
@@ -16,11 +21,14 @@ const Dashboard = () => {
     password: "",
   });
   const [profileAnimes, setProfileAnimes] = useState([]);
+
   const navigate = useNavigate();
-  const { id } = useParams(); // optional for friend
+  const { id } = useParams(); // ID opcional para ver perfil de otro usuario
   const token = localStorage.getItem("token");
 
-  // --- Delete account ---
+  // -------------------------
+  // ELIMINAR CUENTA
+  // -------------------------
   const handleDeleteAccount = async () => {
     const confirm1 = window.confirm(
       "⚠️ Are you sure you want to delete your account? This action is permanent."
@@ -35,9 +43,7 @@ const Dashboard = () => {
     try {
       const res = await fetch("http://localhost:5000/api/user/me", {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       if (!res.ok) throw new Error("Error deleting user");
@@ -46,7 +52,6 @@ const Dashboard = () => {
       localStorage.removeItem("userId");
 
       alert("Your account has been deleted.");
-
       navigate("/");
       window.location.reload();
     } catch (err) {
@@ -55,7 +60,9 @@ const Dashboard = () => {
     }
   };
 
-  // --- Load profile and animes ---
+  // -------------------------
+  // CARGAR PERFIL Y ANIMES
+  // -------------------------
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -81,11 +88,15 @@ const Dashboard = () => {
     fetchProfile();
   }, [id, token]);
 
-  // --- Avatar selection ---
+  // -------------------------
+  // SELECCIÓN DE AVATAR
+  // -------------------------
   const handleAvatarSelect = (avatar) =>
     setProfileData({ ...profileData, avatar: `/assets/profile-pictures/${avatar}` });
 
-  // --- Save profile ---
+  // -------------------------
+  // GUARDAR PERFIL
+  // -------------------------
   const handleSaveProfile = async (e) => {
     e.preventDefault();
     try {
@@ -113,6 +124,9 @@ const Dashboard = () => {
     }
   };
 
+  // -------------------------
+  // ESTADÍSTICAS DE ANIMES
+  // -------------------------
   const mapStatus = (status) => {
     switch ((status || "").toLowerCase()) {
       case "watching":
@@ -145,20 +159,20 @@ const Dashboard = () => {
       states[status] += 1;
     });
 
-    return {
-      ...states,
-      totalEntries: profileAnimes.length,
-      days: 0,
-    };
+    return { ...states, totalEntries: profileAnimes.length, days: 0 };
   };
 
   const stats = getStats();
 
+  // -------------------------
+  // RENDER
+  // -------------------------
   return (
     <>
       <Navbar onThemeToggle={toggleTheme} theme={theme} showSearchIcon={false} />
 
       <main className="container section dashboard-layout">
+        {/* Columna de perfil */}
         <div className="profile-column">
           {!editing || id ? (
             <section id="profile">
@@ -171,27 +185,20 @@ const Dashboard = () => {
                   alt="User Avatar"
                 />
               </div>
-              <p>
-                <strong>Name:</strong> {profileData.username}
-              </p>
-              <p>
-                <strong>Email:</strong> {profileData.email}
-              </p>
+              <p><strong>Name:</strong> {profileData.username}</p>
+              <p><strong>Email:</strong> {profileData.email}</p>
 
               {!id && (
                 <div className="profile-buttons">
                   <button className="btn-primary" onClick={() => setEditing(true)}>
                     Edit Profile
                   </button>
-
                   <button className="btn-secondary" onClick={() => navigate("/my-animes")}>
                     📋 Anime List
                   </button>
-
                   <button className="btn-secondary" onClick={() => navigate("/friendlist")}>
                     👥 Friend List
                   </button>
-
                   <button
                     className="btn-danger"
                     style={{ backgroundColor: "#b00020", color: "white" }}
@@ -268,11 +275,12 @@ const Dashboard = () => {
           )}
         </div>
 
+        {/* Columna de estadísticas y favoritos */}
         <div className="dashboard-column">
           <section id="stats">
             <h3>Statistics</h3>
             <div className="status-stats">
-              {[ 
+              {[
                 { label: "Watching", value: stats["Watching"] },
                 { label: "Completed", value: stats["Completed"] },
                 { label: "On-Hold", value: stats["On-Hold"] },
@@ -313,6 +321,7 @@ const Dashboard = () => {
           </section>
         </div>
       </main>
+
       <Footer />
     </>
   );

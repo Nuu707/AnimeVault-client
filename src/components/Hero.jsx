@@ -1,21 +1,32 @@
+// src/components/Hero.jsx
 import React, { useEffect, useState } from "react";
 
+/**
+ * Componente Hero con slider de imágenes y contenido destacado.
+ * Cambia automáticamente de slide cada 5 segundos.
+ */
 const Hero = () => {
+  // Lista de imágenes del slider
   const slides = [
-    "/assets/banner/Sasaki-and-Miyano-Wallpaper.jpg",
-    "/assets/banner/descarga.jpg",
-    "/assets/banner/Orange.jpg",
+    "/assets/banner/01.jpg",
+    "/assets/banner/02.jpg",
+    "/assets/banner/03.jpg",
+    "/assets/banner/04.jpg",
+    "/assets/banner/05.jpg",
+    "/assets/banner/06.jpg",
+    "/assets/banner/07.jpg",
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Change slide every 5 seconds
+  // Efecto: cambia de slide automáticamente cada 5 segundos
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
 
-    return () => clearInterval(interval); // clean up on unmount
+    // Cleanup al desmontar el componente
+    return () => clearInterval(interval);
   }, [slides.length]);
 
   return (

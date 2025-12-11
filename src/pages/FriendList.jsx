@@ -1,3 +1,4 @@
+// src/pages/FriendList.jsx
 import React, { useState, useEffect, useCallback } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -18,7 +19,9 @@ const FriendList = () => {
   const token = localStorage.getItem("token");
   const loggedUserId = localStorage.getItem("userId");
 
-  // --- Load friends and sent requests ---
+  // ---------------------------
+  // LOAD FRIENDS & SENT REQUESTS
+  // ---------------------------
   const loadFriends = useCallback(async () => {
     try {
       const res = await fetch(`${API_URL}`, {
@@ -47,10 +50,11 @@ const FriendList = () => {
     loadFriends();
   }, [loadFriends]);
 
-  // --- Search users ---
+  // ---------------------------
+  // SEARCH USERS
+  // ---------------------------
   const handleSearch = async (e) => {
     e.preventDefault();
-
     if (!searchTerm.trim()) return setSearchResults([]);
 
     try {
@@ -61,7 +65,6 @@ const FriendList = () => {
       if (!res.ok) throw new Error("Error searching users");
 
       const data = await res.json();
-
       const filtered = (data.users || []).filter((user) => {
         if (!user?._id) return false;
         const id = user._id.toString();
@@ -78,7 +81,9 @@ const FriendList = () => {
     }
   };
 
-  // --- Send friend request ---
+  // ---------------------------
+  // SEND FRIEND REQUEST
+  // ---------------------------
   const sendFriendRequest = async (userId) => {
     try {
       const res = await fetch(`${API_URL}/request`, {
@@ -100,7 +105,9 @@ const FriendList = () => {
     }
   };
 
-  // --- Remove friend from UI ---
+  // ---------------------------
+  // REMOVE FRIEND FROM UI
+  // ---------------------------
   const handleRemoveFriend = (friendId) => {
     setFriends((prev) =>
       prev.filter((f) => f?._id?.toString() !== friendId.toString())
@@ -112,16 +119,35 @@ const FriendList = () => {
       <Navbar onThemeToggle={toggleTheme} theme={theme} showSearchIcon={false} />
 
       <main className="container section friend-list">
+        {/* ---------- Friends List ---------- */}
         <div className="section-header">
-          <h2>Pending Requests</h2>
+          <h2>Friends List</h2>
         </div>
 
+        {friends.length === 0 ? (
+          <p>You have no friends yet.</p>
+        ) : (
+          <div className="grid friend-grid">
+            {friends.map((friend) => (
+              <FriendCard
+                key={friend._id}
+                friend={friend}
+                onRemove={handleRemoveFriend}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* ---------- Pending Requests ---------- */}
+        <div className="section-header" style={{ marginTop: "40px" }}>
+          <h2>Pending Requests</h2>
+        </div>
         <FriendRequests onUpdateFriends={loadFriends} />
 
+        {/* ---------- Search New Friends ---------- */}
         <div className="section-header" style={{ marginTop: "40px" }}>
           <h2>Search New Friends</h2>
         </div>
-
         <form className="friend-search" onSubmit={handleSearch}>
           <input
             type="text"
@@ -144,7 +170,6 @@ const FriendList = () => {
                 />
                 <div className="card-body">
                   <h3>{user.username}</h3>
-
                   <button
                     className="btn-primary"
                     onClick={() => sendFriendRequest(user._id)}
@@ -156,24 +181,6 @@ const FriendList = () => {
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
-        )}
-
-        <div className="section-header" style={{ marginTop: "40px" }}>
-          <h2>Friends List</h2>
-        </div>
-
-        {friends.length === 0 ? (
-          <p>You have no friends yet.</p>
-        ) : (
-          <div className="grid friend-grid">
-            {friends.map((friend) => (
-              <FriendCard
-                key={friend._id}
-                friend={friend}
-                onRemove={handleRemoveFriend}
-              />
             ))}
           </div>
         )}

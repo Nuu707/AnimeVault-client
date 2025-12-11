@@ -4,26 +4,34 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useTheme } from "../context/ThemeContext";
 
+/**
+ * Página de contacto
+ * Permite a los usuarios enviar mensajes al proyecto a través de un formulario.
+ */
 const Contact = () => {
   const { theme, toggleTheme } = useTheme();
 
-  // --- Form state ---
+  // --- Estado del formulario ---
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    message: ""
+    message: "",
   });
 
-  // --- Submission status ---
+  // --- Estado de envío ---
   const [status, setStatus] = useState(""); // "", "success", "error"
 
-  // Handle input changes
+  /**
+   * Actualiza el estado del formulario al cambiar los inputs
+   */
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submission
+  /**
+   * Maneja el envío del formulario
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus(""); // reset
@@ -52,12 +60,14 @@ const Contact = () => {
 
   return (
     <>
+      {/* Navbar sin icono de búsqueda */}
       <Navbar 
         onThemeToggle={toggleTheme} 
         theme={theme} 
-        showSearchIcon={false} // hide search icon on Contact page
+        showSearchIcon={false} 
       />
 
+      {/* Contenido principal */}
       <main className="section contact-page container">
         <div className="section-header">
           <h2>Contact</h2>
@@ -111,6 +121,7 @@ const Contact = () => {
             Send Message
           </button>
 
+          {/* Mensajes de estado */}
           {status === "success" && (
             <p className="success">✅ Message sent successfully.</p>
           )}

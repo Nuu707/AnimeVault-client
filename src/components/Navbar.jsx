@@ -2,23 +2,65 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Navbar = ({ onSearchToggle, onThemeToggle, theme, showSearchIcon = true }) => {
+/**
+ * Barra de navegación principal de la aplicación.
+ * Soporta:
+ *  - Menú móvil
+ *  - Login/Logout dinámico
+ *  - Icono de búsqueda
+ *  - Cambio de tema (dark/light)
+ */
+const Navbar = ({
+  onSearchToggle,
+  onThemeToggle,
+  theme,
+  showSearchIcon = true,
+}) => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token"); // detect if user is logged in
+  const token = localStorage.getItem("token");
 
+  /**
+   * Cierra la sesión eliminando el token y redirigiendo a /login
+   */
   const handleLogout = () => {
-    localStorage.removeItem("token"); // remove token
+    localStorage.removeItem("token");
     navigate("/login");
+  };
+
+  /**
+   * Abre o cierra el menú móvil (solo en mobile)
+   */
+  const toggleMobileMenu = () => {
+    const nav = document.querySelector(".nav-desktop");
+    if (nav) {
+      nav.classList.toggle("mobile-open");
+    }
   };
 
   return (
     <header className="topbar">
       <div className="container topbar-inner">
+
+        {/* LOGO */}
         <div className="logo">
-          <Link to="/" aria-label="AnimeTracker Home">AnimeVault</Link>
+          <Link to="/" aria-label="AnimeVault Home">
+            AnimeVault
+          </Link>
         </div>
 
+        {/* HAMBURGER BUTTON (VISIBLE SOLO EN MOBILE) */}
+        <button
+          className="mobile-menu-toggle"
+          aria-label="Open menu"
+          onClick={toggleMobileMenu}
+        >
+          ☰
+        </button>
+
+        {/* NAV DESKTOP (hidden en mobile via CSS) */}
         <nav className="nav-desktop" aria-label="Main navigation">
+
+          {/* ICONO DE BÚSQUEDA */}
           {showSearchIcon && (
             <button
               aria-label="Open search"
@@ -40,15 +82,13 @@ const Navbar = ({ onSearchToggle, onThemeToggle, theme, showSearchIcon = true })
             </button>
           )}
 
+          {/* ENLACES PRINCIPALES */}
           <Link to="/gallery" className="nav-link">Gallery</Link>
-
-          {/* If user is logged in → show private routes */}
           {token && <Link to="/dashboard" className="nav-link">Profile</Link>}
-
           <Link to="/about" className="nav-link">About</Link>
           <Link to="/contact" className="nav-link">Contact</Link>
 
-          {/* If NOT logged in → show Login + Register */}
+          {/* LOGIN / REGISTER */}
           {!token && (
             <>
               <Link to="/login" className="btn-ghost">Login</Link>
@@ -56,16 +96,18 @@ const Navbar = ({ onSearchToggle, onThemeToggle, theme, showSearchIcon = true })
             </>
           )}
 
-          {/* If logged in → show Logout */}
+          {/* LOGOUT */}
           {token && (
             <button onClick={handleLogout} className="btn-ghost">
               Logout
             </button>
           )}
 
+          {/* TOGGLE DE TEMA */}
           <button className="btn-ghost" onClick={onThemeToggle}>
             {theme === "dark" ? "☀️" : "🌙"}
           </button>
+
         </nav>
       </div>
     </header>

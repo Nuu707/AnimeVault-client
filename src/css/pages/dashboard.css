@@ -428,3 +428,202 @@
 #anime-table td {
   padding: 8px; /* ↓ */
 }
+/* ==============================
+   🌟 DASHBOARD — RESPONSIVE CORREGIDO
+============================== */
+
+/* ---------------------------------
+   GRID DASHBOARD
+--------------------------------- */
+@media (max-width: 1200px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr 1.5fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin: 20px 12px;
+  }
+
+  .profile-column,
+  .dashboard-column {
+    width: 100%;
+  }
+}
+
+/* ---------------------------------
+   AVATAR & PROFILE
+--------------------------------- */
+.avatar-preview {
+  width: 120px;
+  height: 120px;
+}
+
+.profile-buttons {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-buttons button {
+  padding: 10px 14px;
+  font-size: 0.9rem;
+}
+
+.avatar-choice {
+  width: 50px;
+  height: 50px;
+}
+
+/* ---------------------------------
+   PANEL DASHBOARD
+--------------------------------- */
+.dashboard-panel {
+  padding: 18px;
+  border-radius: 14px;
+}
+
+@media (max-width: 480px) {
+  .dashboard-panel {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  .avatar-preview {
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-buttons button {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+
+  .avatar-choice {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ---------------------------------
+   ESTADÍSTICAS COMPACTAS
+--------------------------------- */
+.status-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.stat-card {
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+}
+
+.stat-card h3 {
+  font-size: 1rem;
+}
+
+.stat-card p {
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+@media (max-width: 768px) {
+  .status-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 10px;
+  }
+
+  .stat-card h3 {
+    font-size: 0.9rem;
+  }
+
+  .stat-card p {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .status-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .stat-card {
+    padding: 8px;
+  }
+
+  .stat-card h3 {
+    font-size: 0.85rem;
+  }
+
+  .stat-card p {
+    font-size: 0.7rem;
+  }
+}
+
+/* ---------------------------------
+   FAVORITES
+--------------------------------- */
+.favorites-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  justify-items: center; /* centra las cards */
+}
+
+.fav-card {
+  width: 100%;
+  max-width: 140px;
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.fav-card img {
+  width: 100%;
+  height: auto;
+  max-height: 130px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .favorites-container {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+  }
+
+  .fav-card {
+    max-width: 120px;
+    padding: 10px;
+  }
+
+  .fav-card img {
+    max-height: 110px;
+  }
+}
+
+@media (max-width: 480px) {
+  .favorites-container {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 8px;
+  }
+
+  .fav-card {
+    max-width: 100px;
+    padding: 8px;
+  }
+
+  .fav-card img {
+    max-height: 95px;
+  }
+}

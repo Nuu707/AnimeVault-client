@@ -2,24 +2,26 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Usamos Link para SPA
 import { useTheme } from "../context/ThemeContext";
 
 const Register = () => {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
 
+  // ---------------------- Form state ----------------------
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
+  // ---------------------- Handle form submission ----------------------
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
 
-    // Basic validation
+    // --- Basic client-side validation ---
     if (!username || !email || !password || !confirmPassword) {
       setError("Please fill in all fields.");
       return;
@@ -35,6 +37,7 @@ const Register = () => {
       return;
     }
 
+    // --- Send registration request ---
     try {
       const res = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
@@ -49,7 +52,7 @@ const Register = () => {
         return;
       }
 
-      // Optionally save token and navigate
+      // --- Save token and navigate to dashboard ---
       localStorage.setItem("token", data.token);
       navigate("/dashboard");
     } catch (err) {
@@ -60,12 +63,14 @@ const Register = () => {
 
   return (
     <>
+      {/* Navbar without search icon */}
       <Navbar onThemeToggle={toggleTheme} theme={theme} showSearchIcon={false} />
 
       <main className="auth-container">
         <div className="auth-card">
           <h2>Register</h2>
 
+          {/* ---------------------- Registration Form ---------------------- */}
           <form onSubmit={handleRegister} className="auth-form">
             <label htmlFor="username">Username</label>
             <input
@@ -107,6 +112,7 @@ const Register = () => {
               required
             />
 
+            {/* Error message */}
             {error && <p className="error-text">{error}</p>}
 
             <button type="submit" className="btn-primary">
@@ -114,11 +120,12 @@ const Register = () => {
             </button>
           </form>
 
+          {/* Switch to login */}
           <p className="auth-switch">
             Already have an account?{" "}
-            <a href="/login" className="link">
+            <Link to="/login" className="link">
               Login
-            </a>
+            </Link>
           </p>
         </div>
       </main>

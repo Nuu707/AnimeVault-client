@@ -1,3 +1,4 @@
+// src/pages/Detail.jsx
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -21,7 +22,7 @@ const Detail = () => {
   const token = localStorage.getItem("token");
 
   // ---------------------------
-  // Load user data
+  // REFRESH USER DATA
   // ---------------------------
   const refreshUserAnimes = useCallback(async () => {
     if (!token) return;
@@ -47,27 +48,25 @@ const Detail = () => {
   }, [refreshUserAnimes]);
 
   // ---------------------------
-  // Load anime data
+  // LOAD ANIME DATA
   // ---------------------------
   useEffect(() => {
     let mounted = true;
-    const load = async () => {
+    const loadAnime = async () => {
       try {
         const found = animes.find((a) => a._id === id);
         const data = found || (await fetchAnimeById(id));
-        if (mounted && data) {
-          setAnime({ ...data, _id: data._id || id });
-        }
+        if (mounted && data) setAnime({ ...data, _id: data._id || id });
       } catch (err) {
         console.error("Error loading anime:", err);
       }
     };
-    load();
+    loadAnime();
     return () => (mounted = false);
   }, [id, animes]);
 
   // ---------------------------
-  // Comments (localStorage)
+  // COMMENTS: localStorage
   // ---------------------------
   useEffect(() => {
     if (!anime) return;
@@ -83,7 +82,7 @@ const Detail = () => {
   }, [comments, anime, id]);
 
   // ---------------------------
-  // Add to my list
+  // ADD TO MY LIST
   // ---------------------------
   const handleAddToMyList = async () => {
     if (!anime || addLoading) return;
@@ -100,7 +99,7 @@ const Detail = () => {
   };
 
   // ---------------------------
-  // Comments
+  // SUBMIT COMMENT
   // ---------------------------
   const handleCommentSubmit = (e) => {
     e.preventDefault();
@@ -131,22 +130,22 @@ const Detail = () => {
     );
   }
 
+  // ---------------------------
+  // RENDER DETAIL PAGE
+  // ---------------------------
   return (
     <>
-      <Navbar
-        onSearchToggle={() => {}}
-        theme={theme}
-        onThemeToggle={toggleTheme}
-        showSearchIcon={false}
-      />
+      <Navbar theme={theme} onThemeToggle={toggleTheme} showSearchIcon={false} />
       <main className="section" id="anime-detail">
         <div className="container">
+          {/* Back Button */}
           <div className="back-button-wrapper">
             <button className="back-button" onClick={() => window.history.back()}>
               ← Back
             </button>
           </div>
 
+          {/* Anime Detail */}
           <div className="detail-card">
             <img src={anime.image} alt={anime.title} className="detail-image" />
             <div className="detail-info">
@@ -156,22 +155,18 @@ const Detail = () => {
                 <span className="tag">{anime.genre?.join(", ")}</span>
               </div>
 
-              {/* ADD BUTTON */}
+              {/* Add to My List */}
               <button
                 className="btn-primary btn-sm"
                 onClick={handleAddToMyList}
                 disabled={inMyList || addLoading}
               >
-                {addLoading
-                  ? "Adding..."
-                  : inMyList
-                  ? "In your list"
-                  : "Add to my list"}
+                {addLoading ? "Adding..." : inMyList ? "In your list" : "Add to my list"}
               </button>
             </div>
           </div>
 
-          {/* COMMENTS */}
+          {/* Comments */}
           <div className="comments-section">
             <h3>Comments</h3>
             <form className="comment-form" onSubmit={handleCommentSubmit}>

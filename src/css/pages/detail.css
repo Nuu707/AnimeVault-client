@@ -597,3 +597,72 @@ body.dark-mode .detail-tags svg,
 body.dark-mode .detail-actions svg {
   fill: #fff;
 }
+
+/* ------------------------------- */
+/* RESPONSIVE DETAIL PAGE — AJUSTE PARA MÓVILES PEQUEÑOS */
+/* ------------------------------- */
+@media (max-width: 768px) {
+  #anime-detail .detail-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+
+  #anime-detail .detail-card img.detail-image {
+    width: 80%;      /* imagen más pequeña */
+    max-width: 220px; /* límite de tamaño */
+    margin-bottom: 16px;
+    border-radius: 12px;
+  }
+
+  #anime-detail .detail-info h2 {
+    font-size: 1.25rem; /* título más pequeño */
+    margin-bottom: 8px;
+  }
+
+  #anime-detail .detail-info p {
+    font-size: 0.85rem;
+  }
+
+  #anime-detail .detail-info .detail-tags {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  #anime-detail .btn-primary.btn-sm {
+    width: 80%;
+    max-width: 200px;
+    font-size: 0.85rem;
+  }
+
+  /* Comments */
+  .comments-section {
+    padding: 0 10px;
+  }
+
+  .comment-form textarea {
+    width: 100%;
+    font-size: 0.85rem;
+  }
+
+  .comment-form button {
+    width: 100%;
+    margin-top: 6px;
+    font-size: 0.85rem;
+  }
+
+  .comment-list .comment {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 8px 6px;
+  }
+
+  .comment-header img.comment-avatar {
+    width: 36px;
+    height: 36px;
+    margin-right: 6px;
+  }
+}

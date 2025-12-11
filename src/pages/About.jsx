@@ -4,14 +4,19 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useTheme } from "../context/ThemeContext";
 
+/**
+ * Página About
+ * Explica qué es Anime Vault y sus funcionalidades principales.
+ */
 const About = () => {
-  const { theme, toggleTheme } = useTheme(); // Usamos el context
+  const { theme, toggleTheme } = useTheme(); // Usamos ThemeContext
 
   return (
     <>
-      {/* Hide search icon in About page */}
+      {/* Navbar: ocultamos icono de búsqueda en esta página */}
       <Navbar onThemeToggle={toggleTheme} theme={theme} showSearchIcon={false} />
 
+      {/* Contenido principal */}
       <main className="section about-section container">
         <h1>What is Anime Vault?</h1>
         <p>
@@ -29,6 +34,7 @@ const About = () => {
           you left off or which series you wanted to start.
         </p>
 
+        {/* Tarjetas destacando características principales */}
         <div className="about-cards">
           <div className="about-card">
             <h3>Organize Your List</h3>
@@ -55,6 +61,7 @@ const About = () => {
         </div>
       </main>
 
+      {/* Footer */}
       <Footer />
     </>
   );

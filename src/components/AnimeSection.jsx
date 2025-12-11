@@ -2,15 +2,20 @@
 import React, { useState, useEffect } from "react";
 import fetchAnimes from "../api/animeAPI";
 
+/**
+ * Muestra una sección de animes.
+ * - Si recibe `query`, funciona como resultados de búsqueda.
+ * - Si NO recibe `query`, muestra los 3 últimos animes añadidos.
+ */
 const AnimeSection = ({ query = "" }) => {
   const [animes, setAnimes] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Carga inicial de los animes desde la API
   useEffect(() => {
-    const getAnimes = async () => {
+    const loadAnimes = async () => {
       try {
         const data = await fetchAnimes();
-        console.log("Received data from API:", data);
         setAnimes(data);
       } catch (err) {
         console.error("Error loading animes:", err);
@@ -19,25 +24,31 @@ const AnimeSection = ({ query = "" }) => {
       }
     };
 
-    getAnimes();
+    loadAnimes();
   }, []);
 
+  // Mostrar indicador de carga
   if (loading) {
     return <p>Loading animes...</p>;
   }
 
+  // Si existe búsqueda, filtra los resultados
   const filteredAnimes = query
     ? animes.filter((anime) =>
         anime.title.toLowerCase().includes(query.toLowerCase())
       )
     : animes;
 
+  // ===========================
+  // 🔍 MODO BÚSQUEDA (query)
+  // ===========================
   if (query) {
     return (
       <section className="container section">
         <div className="section-header">
           <h2>Search Results</h2>
         </div>
+
         {filteredAnimes.length > 0 ? (
           <div className="grid">
             {filteredAnimes.map((anime) => (
@@ -59,7 +70,10 @@ const AnimeSection = ({ query = "" }) => {
     );
   }
 
-  // Show only the 3 latest added animes
+  // ===============================
+  // 🆕 MODO "Últimos 3 animes"
+  // ===============================
+
   const latestAnimes = animes.slice(-3).reverse();
 
   return (
@@ -67,6 +81,7 @@ const AnimeSection = ({ query = "" }) => {
       <div className="section-header">
         <h2>Latest Added Anime</h2>
       </div>
+
       <div className="grid">
         {latestAnimes.map((anime) => (
           <div key={anime._id} className="card">

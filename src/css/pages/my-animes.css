@@ -85,19 +85,18 @@
 /* CELDA DE ACCIONES */
 .actions-cell {
   display: flex;
-  align-items: center;     /* centra verticalmente */
-  justify-content: center; /* centra horizontalmente */
+  align-items: center;
+  justify-content: center;
   gap: 10px;
 }
 
-/* Ajustes generales para iconos dentro de acciones */
 .actions-cell button svg {
   width: 22px;
   height: 22px;
-  display: block;          /* evita espacio extra de línea */
+  display: block;
   transition: transform 0.2s ease, fill 0.2s ease;
-    margin-top: 40px; /* Ajusta a tu gusto */
-    margin-bottom: 42px;
+  margin-top: 40px;
+  margin-bottom: 42px;
 }
 
 /* ---------------------------- */
@@ -112,14 +111,9 @@
   justify-content: center;
 }
 
-/* Color por defecto */
 body.light-mode .fav-btn svg { fill: #1f1f1f; }
 body.dark-mode .fav-btn svg { fill: #ffffff; }
-
-/* Cuando es favorito */
 .fav-btn.filled svg { fill: #ffd700 !important; }
-
-/* Hover escala */
 .fav-btn:hover svg { transform: scale(1.2); }
 
 /* ---------------------------- */
@@ -154,29 +148,27 @@ body.dark-mode .fav-btn svg { fill: #ffffff; }
 }
 
 /* ---------------------------- */
-/* SELECT DE ESTADO */
+/* ---------------------------- */
+/* SELECT DE ESTADO AUTOMÁTICO */
+/* ---------------------------- */
 #anime-table select {
-  padding: 4px 8px;
-  border-radius: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  background-color: var(--bg-element, #f5f5f5);
-  color: var(--text);
+  padding: 6px 14px;
+  border-radius: 20px;                /* pill redondeado */
   font-weight: 600;
   font-size: 0.9rem;
+  border: 1px solid rgba(0,0,0,0.2);
   cursor: pointer;
-  transition: all 0.2s ease;
-  appearance: none; /* elimina estilo por defecto */
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-}
-
-/* Flecha personalizada */
-#anime-table select {
+  transition: all 0.25s ease;
+  color: #0a0a0f;
+  background-color: #f5f5f5;           /* claro por defecto */
   background-image: url("data:image/svg+xml;utf8,<svg fill='%23666' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
-  background-position: right 8px center;
+  background-position: right 10px center;
   background-size: 16px;
-  padding-right: 28px; /* espacio para la flecha */
+  padding-right: 36px;                 /* espacio para la flecha */
 }
 
 /* Hover y focus */
@@ -187,95 +179,44 @@ body.dark-mode .fav-btn svg { fill: #ffffff; }
   outline: none;
 }
 
-/* Opciones de color según el valor */
-#anime-table select option[value="plan"] { background-color: #f0ad4e; color: #0a0a0f; }
-#anime-table select option[value="watching"] { background-color: #5bc0de; color: #0a0a0f; }
-#anime-table select option[value="completed"] { background-color: #5cb85c; color: #0a0a0f; }
-#anime-table select option[value="dropped"] { background-color: #d9534f; color: #0a0a0f; }
-#anime-table select option[value="on-Hold"] { background-color: #f7b7f7; color: #0a0a0f; }
+/* Colores según el valor del select */
+#anime-table select[value="Plan to watch"] { background-color: #f0ad4e; color: #0a0a0f; }
+#anime-table select[value="Watching"] { background-color: #5bc0de; color: #0a0a0f; }
+#anime-table select[value="Completed"] { background-color: #5cb85c; color: #0a0a0f; }
+#anime-table select[value="Dropped"] { background-color: #d9534f; color: #0a0a0f; }
+#anime-table select[value="On-Hold"] { background-color: #f7b7f7; color: #0a0a0f; }
+#anime-table select[value="Favorites"] { background-color: #ffd700; color: #0a0a0f; }
 
 /* Modo oscuro */
-body.dark-mode #anime-table select {
+body.dark-mode #anime-table select { background-color: #1a1a1a; border: 1px solid #555; color: #fff; }
+body.dark-mode #anime-table select[value="Plan to watch"] { background-color: #b57328; color: #fff; }
+body.dark-mode #anime-table select[value="Watching"] { background-color: #2c98b0; color: #fff; }
+body.dark-mode #anime-table select[value="Completed"] { background-color: #2b8a2b; color: #fff; }
+body.dark-mode #anime-table select[value="Dropped"] { background-color: #a83232; color: #fff; }
+body.dark-mode #anime-table select[value="On-Hold"] { background-color: #b38fb3; color: #fff; }
+body.dark-mode #anime-table select[value="Favorites"] { background-color: #bfa600; color: #fff; }
+
+/* Opciones internas coloreadas */
+#anime-table select option[value="Plan to watch"] { background-color: #f0ad4e; color: #0a0a0f; }
+#anime-table select option[value="Watching"] { background-color: #5bc0de; color: #0a0a0f; }
+#anime-table select option[value="Completed"] { background-color: #5cb85c; color: #0a0a0f; }
+#anime-table select option[value="Dropped"] { background-color: #d9534f; color: #0a0a0f; }
+#anime-table select option[value="On-Hold"] { background-color: #f7b7f7; color: #0a0a0f; }
+#anime-table select option[value="Favorites"] { background-color: #ffd700; color: #0a0a0f; }
+
+body.dark-mode #anime-table select option[value="Plan to watch"] { background-color: #b57328; color: #fff; }
+body.dark-mode #anime-table select option[value="Watching"] { background-color: #2c98b0; color: #fff; }
+body.dark-mode #anime-table select option[value="Completed"] { background-color: #2b8a2b; color: #fff; }
+body.dark-mode #anime-table select option[value="Dropped"] { background-color: #a83232; color: #fff; }
+body.dark-mode #anime-table select option[value="On-Hold"] { background-color: #b38fb3; color: #fff; }
+body.dark-mode #anime-table select option[value="Favorites"] { background-color: #bfa600; color: #fff; }
+
+/* Modo oscuro */
+body.dark-mode #anime-table select.status-select {
   background-color: #1a1a1a;
-  border: 1px solid #555;
   color: #fff;
 }
 
-body.dark-mode #anime-table select:hover,
-body.dark-mode #anime-table select:focus {
-  border-color: #00ffc3;
-  box-shadow: 0 0 6px #00ffc3;
-}
-/* ========================== */
-/* SELECT DE ESTADO COLOREADO */
-/* ========================== */
-
-.status-select {
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-weight: 600;
-  color: #0a0a0f;
-  border: none;
-  cursor: pointer;
-  appearance: none;
-  background-size: 12px;
-}
-
-/* Colores para cada estado */
-.status-select.watching {
-  background: #5bc0de; /* azul */
-}
-
-.status-select.completed {
-  background: #5cb85c; /* verde */
-}
-
-.status-select.plantowatch {
-  background: #f0ad4e; /* naranja */
-}
-
-.status-select.onhold {
-  background: #f7b7f7; /* rosa */
-}
-
-.status-select.dropped {
-  background: #d9534f; /* rojo */
-}
-
-.status-select.favorites {
-  background: #ffd700; /* amarillo */
-}
-
-/* Forzar color del texto en ambos modos */
-body.dark-mode .status-select,
-body.light-mode .status-select {
-  color: #0a0a0f !important;
-}
-
-/* Opciones internas coloreadas */
-.status-select option[value="Watching"] {
-  background: #5bc0de;
-}
-
-.status-select option[value="Completed"] {
-  background: #5cb85c;
-}
-
-.status-select option[value="Plan to watch"] {
-  background: #f0ad4e;
-}
-
-.status-select option[value="On-Hold"] {
-  background: #f7b7f7;
-}
-
-.status-select option[value="Dropped"] {
-  background: #d9534f;
-}
-
-.status-select option[value="Favorites"] {
-  background: #ffd700;
-}
 /* ---------------------------- */
 /* ⭐ FAVORITO EN COLUMNA FAVS */
 #anime-table td .fav-btn,
@@ -292,12 +233,12 @@ body.light-mode .status-select {
 #anime-table td .fav-btn svg {
   width: 22px;
   height: 22px;
-  fill: gray; /* color por defecto */
+  fill: gray;
   transition: transform 0.2s ease, fill 0.2s ease;
 }
 
 #anime-table td .fav-btn.filled svg {
-  fill: gold !important; /* color estrella marcada */
+  fill: gold !important;
 }
 
 #anime-table td .fav-btn:hover svg {
@@ -305,41 +246,32 @@ body.light-mode .status-select {
   fill: orange;
 }
 
-/* Centrar columna Favs */
 #anime-table th:nth-child(5),
 #anime-table td:nth-child(5) {
   text-align: center;
   width: 60px;
 }
-/* ==========================================================
-   TABLE BODY ROWS — clean separators + neon hint
-   ========================================================== */
 
+/* ========================================================== */
+/* TABLE BODY ROWS — clean separators + neon hint */
 #anime-table tbody tr {
   background: rgba(255,255,255,0.01);
   transition: background .18s ease, transform .18s ease, box-shadow .18s ease;
-
-  /* separación clara pero elegante */
   border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-/* Última fila sin borde */
 #anime-table tbody tr:last-child {
   border-bottom: none;
 }
 
-/* hover ligero (sin convertirlo en card) */
 #anime-table tbody tr:hover {
   background: rgba(79,195,232,0.04);
   transform: translateY(-2px);
-
-  /* glow muy suave */
   box-shadow:
     0 6px 14px rgba(4,21,40,0.08),
     0 0 10px rgba(79,195,232,0.05);
 }
 
-/* CELLS — slightly more padding for readability */
 #anime-table td {
   padding: 12px 14px;
   vertical-align: middle;
@@ -347,13 +279,41 @@ body.light-mode .status-select {
   font-size: 0.95rem;
 }
 
-/* HEADERS — divider under header */
 #anime-table thead th {
   border-bottom: 2px solid rgba(79,195,232,0.14);
   background: transparent;
 }
 
-/* optional: subtle glow line on top of body */
 #anime-table tbody {
   border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+
+/* ==============================
+   MY ANIMES — OCULTAR COLUMNAS EN RESPONSIVE
+============================== */
+
+@media (max-width: 768px) {
+  /* Ocultar columnas Name y Category en móviles y tablets */
+  #anime-table th:nth-child(2),
+  #anime-table th:nth-child(3),
+  #anime-table td:nth-child(2),
+  #anime-table td:nth-child(3) {
+    display: none;
+  }
+
+  /* Mantener padding reducido para que no haya mucho espacio horizontal */
+  #anime-table th,
+  #anime-table td {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  #anime-table th,
+  #anime-table td {
+    padding-left: 2px;
+    padding-right: 2px;
+  }
 }

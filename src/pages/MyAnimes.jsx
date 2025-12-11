@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 
 const MyAnimes = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // id opcional para ver lista de un amigo
   const { theme, toggleTheme } = useTheme();
 
   const [animes, setAnimes] = useState([]);
@@ -31,8 +31,7 @@ const MyAnimes = () => {
     if (!animeEntry) return null;
     const a = animeEntry.animeId;
     if (!a) return null;
-    if (typeof a === "string") return a;
-    return a._id || a.id || null;
+    return typeof a === "string" ? a : a._id || a.id || null;
   };
 
   /* ---------------------- NORMALIZE STATUS ---------------------- */
@@ -81,6 +80,7 @@ const MyAnimes = () => {
         const data = await res.json();
         let userAnimes = data.animes || [];
 
+        // Poblar animes completos y normalizar status
         const populated = await Promise.all(
           userAnimes.map(async (entry) => {
             if (!entry) return entry;
@@ -114,21 +114,22 @@ const MyAnimes = () => {
   /* ---------------------- FILTER LOGIC ---------------------- */
   const filteredAnimes = animes.filter((anime) => {
     const status = normalizeStatus(anime?.status);
+
     if (currentFilter === "All") return true;
     if (currentFilter === "Favorites") return anime?.favorite;
 
-    // Convert normalized status to display format
-    const displayStatus = status === "plan"
-      ? "Plan to watch"
-      : status === "watching"
-      ? "Watching"
-      : status === "completed"
-      ? "Completed"
-      : status === "dropped"
-      ? "Dropped"
-      : status === "on-hold"
-      ? "On-Hold"
-      : status;
+    const displayStatus =
+      status === "plan"
+        ? "Plan to watch"
+        : status === "watching"
+        ? "Watching"
+        : status === "completed"
+        ? "Completed"
+        : status === "dropped"
+        ? "Dropped"
+        : status === "on-hold"
+        ? "On-Hold"
+        : status;
 
     return displayStatus === currentFilter;
   });
@@ -152,10 +153,7 @@ const MyAnimes = () => {
     try {
       const res = await fetch(`http://localhost:5000/api/user/favorite/${realId}`, {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
       });
 
       if (!res.ok) {
@@ -200,26 +198,23 @@ const MyAnimes = () => {
     const realId = getAnimeId(animeEntry);
     if (!realId) return;
 
-    // Map display value back to normalized value for backend
-    const normalizedStatus = displayStatus === "Plan to watch"
-      ? "plan"
-      : displayStatus === "Watching"
-      ? "watching"
-      : displayStatus === "Completed"
-      ? "completed"
-      : displayStatus === "Dropped"
-      ? "dropped"
-      : displayStatus === "On-Hold"
-      ? "on-hold"
-      : displayStatus;
+    const normalizedStatus =
+      displayStatus === "Plan to watch"
+        ? "plan"
+        : displayStatus === "Watching"
+        ? "watching"
+        : displayStatus === "Completed"
+        ? "completed"
+        : displayStatus === "Dropped"
+        ? "dropped"
+        : displayStatus === "On-Hold"
+        ? "on-hold"
+        : displayStatus;
 
     try {
       const res = await fetch(`http://localhost:5000/api/user/my-animes/${realId}`, {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ status: normalizedStatus }),
       });
 
@@ -275,6 +270,7 @@ const MyAnimes = () => {
           ))}
         </div>
 
+        {/* ANIME TABLE */}
         {filteredAnimes.length === 0 ? (
           <p>No animes to show.</p>
         ) : (
@@ -315,10 +311,8 @@ const MyAnimes = () => {
                         style={{ width: "60px", borderRadius: "6px" }}
                       />
                     </td>
-
                     <td>{anime.animeId?.title || "-"}</td>
                     <td>{anime.animeId?.genre?.join(", ") || "-"}</td>
-
                     <td>
                       <select
                         value={displayStatus}
