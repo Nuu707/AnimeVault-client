@@ -48,3 +48,13 @@ AnimeVault also includes login and registration functionality, ensuring personal
 ➟ CORS enabled for cross-origin requests.
 
 ---
+<<<<<<< HEAD
+=======
+
+### Notes 
+
+* Rating system was removed; only text comments are available.
+* Error handling pages (like 404) can be added for a more complete UX.
+* All core CRUD operations are implemented for anime entries.
+
+>>>>>>> 6e218c3cbf455147b12643aaf1dc11085e6237b3
