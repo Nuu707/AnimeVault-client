@@ -74,7 +74,7 @@ const AnimeSection = ({ query = "" }) => {
   // 🆕 MODO "Últimos 3 animes"
   // ===============================
 
-  const latestAnimes = animes.slice(-3).reverse();
+  const latestAnimes = animes.slice(-4).reverse();
 
   return (
     <section className="container section">

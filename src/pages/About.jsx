@@ -40,7 +40,7 @@ const About = () => {
             <h3>Organize Your List</h3>
             <p>
               Categorize your anime as <strong>Plan to Watch</strong>, <strong>Watching</strong>,
-              <strong>Completed</strong> or <strong>Dropped</strong> so you always know your progress.
+              <strong>Completed</strong>, <strong>On-Hold</strong> or <strong>Dropped</strong> so you always know your progress.
             </p>
           </div>
 
