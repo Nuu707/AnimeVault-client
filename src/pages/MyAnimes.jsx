@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
 
 const MyAnimes = () => {
-  const { id } = useParams(); // id opcional para ver lista de un amigo
+  const { id } = useParams();
   const { theme, toggleTheme } = useTheme();
 
   const [animes, setAnimes] = useState([]);
@@ -16,17 +16,6 @@ const MyAnimes = () => {
   const token = localStorage.getItem("token");
 
   /* ---------------------- HELPERS ---------------------- */
-  const fetchAnimeData = async (animeId) => {
-    if (!animeId) return null;
-    try {
-      const res = await fetch(`http://localhost:5000/api/anime/${animeId}`);
-      if (!res.ok) return null;
-      return await res.json();
-    } catch {
-      return null;
-    }
-  };
-
   const getAnimeId = (animeEntry) => {
     if (!animeEntry) return null;
     const a = animeEntry.animeId;
@@ -34,7 +23,6 @@ const MyAnimes = () => {
     return typeof a === "string" ? a : a._id || a.id || null;
   };
 
-  /* ---------------------- NORMALIZE STATUS ---------------------- */
   const normalizeStatus = (status) => {
     if (!status) return "plan";
     switch (status.toLowerCase()) {
@@ -78,28 +66,17 @@ const MyAnimes = () => {
         }
 
         const data = await res.json();
-        let userAnimes = data.animes || [];
+        const userAnimes = data.animes || [];
 
-        // Poblar animes completos y normalizar status
-        const populated = await Promise.all(
-          userAnimes.map(async (entry) => {
-            if (!entry) return entry;
+        // Normalizar status y rating
+        const processed = userAnimes.map((entry) => {
+          const status = normalizeStatus(entry.status);
+          const favorite = entry.favorite || false;
+          const rating = entry.rating ?? entry.score; // por si hay score
+          return { ...entry, status, favorite, rating };
+        });
 
-            if (typeof entry.animeId === "string") {
-              const fullAnime = await fetchAnimeData(entry.animeId);
-              return { ...entry, animeId: fullAnime };
-            }
-
-            if (entry.animeId && !entry.animeId.title) {
-              const maybe = await fetchAnimeData(entry.animeId._id || entry.animeId.id);
-              return { ...entry, animeId: maybe || entry.animeId };
-            }
-
-            return { ...entry, status: normalizeStatus(entry.status) };
-          })
-        );
-
-        setAnimes(populated);
+        setAnimes(processed);
       } catch (err) {
         console.error(err);
         setAnimes([]);
@@ -114,7 +91,6 @@ const MyAnimes = () => {
   /* ---------------------- FILTER LOGIC ---------------------- */
   const filteredAnimes = animes.filter((anime) => {
     const status = normalizeStatus(anime?.status);
-
     if (currentFilter === "All") return true;
     if (currentFilter === "Favorites") return anime?.favorite;
 
@@ -134,7 +110,6 @@ const MyAnimes = () => {
     return displayStatus === currentFilter;
   });
 
-  /* ---------------------- FILTER BUTTONS DATA ---------------------- */
   const filterButtons = [
     { label: "All", value: "All" },
     { label: "Plan to watch", value: "Plan to watch" },
@@ -233,7 +208,6 @@ const MyAnimes = () => {
     }
   };
 
-  /* ---------------------- LOADING ---------------------- */
   if (loading) {
     return (
       <>
@@ -246,11 +220,9 @@ const MyAnimes = () => {
     );
   }
 
-  /* ---------------------- MAIN RENDER ---------------------- */
   return (
     <>
       <Navbar onThemeToggle={toggleTheme} theme={theme} showSearchIcon={false} />
-
       <main className="container section">
         <div className="section-header">
           <h2>{id ? "Friend's Anime List" : "My Anime List"}</h2>
@@ -285,7 +257,6 @@ const MyAnimes = () => {
                 <th>Actions</th>
               </tr>
             </thead>
-
             <tbody>
               {filteredAnimes.map((anime) => {
                 const realId = getAnimeId(anime);
@@ -326,8 +297,6 @@ const MyAnimes = () => {
                         <option value="Dropped">Dropped</option>
                       </select>
                     </td>
-
-                    {/* FAVORITE COLUMN */}
                     <td className="favs-cell">
                       <button
                         className={`fav-btn ${anime.favorite ? "filled" : ""}`}
@@ -343,8 +312,6 @@ const MyAnimes = () => {
                         </svg>
                       </button>
                     </td>
-
-                    {/* ACTIONS COLUMN */}
                     <td className="actions-cell">
                       <button
                         className="delete-btn"
@@ -366,7 +333,6 @@ const MyAnimes = () => {
           </table>
         )}
       </main>
-
       <Footer />
     </>
   );

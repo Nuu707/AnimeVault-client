@@ -17,7 +17,7 @@ const Dashboard = () => {
   const [profileData, setProfileData] = useState({
     username: "",
     email: "",
-    avatar: "/assets/profile-pictures/placeholder.png",
+    avatar: process.env.PUBLIC_URL + "/assets/profile-pictures/placeholder.png",
     password: "",
   });
   const [profileAnimes, setProfileAnimes] = useState([]);
@@ -25,6 +25,12 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const token = localStorage.getItem("token");
+
+  // -------------------------
+  // Helper para rutas de avatar
+  // -------------------------
+  const getAvatarUrl = (avatar) =>
+    process.env.PUBLIC_URL + "/assets/profile-pictures/" + avatar;
 
   // -------------------------
   // ELIMINAR CUENTA
@@ -77,7 +83,9 @@ const Dashboard = () => {
         setProfileData({
           username: data.username || "",
           email: data.email || "",
-          avatar: data.avatar || "/assets/profile-pictures/placeholder.png",
+          avatar: data.avatar
+            ? getAvatarUrl(data.avatar.split("/").pop())
+            : getAvatarUrl("placeholder.png"),
           password: "",
         });
         setProfileAnimes(data.animes || []);
@@ -92,7 +100,7 @@ const Dashboard = () => {
   // SELECCIÓN DE AVATAR
   // -------------------------
   const handleAvatarSelect = (avatar) =>
-    setProfileData({ ...profileData, avatar: `/assets/profile-pictures/${avatar}` });
+    setProfileData({ ...profileData, avatar: getAvatarUrl(avatar) });
 
   // -------------------------
   // GUARDAR PERFIL
@@ -185,18 +193,28 @@ const Dashboard = () => {
                   alt="User Avatar"
                 />
               </div>
-              <p><strong>Name:</strong> {profileData.username}</p>
-              <p><strong>Email:</strong> {profileData.email}</p>
+              <p>
+                <strong>Name:</strong> {profileData.username}
+              </p>
+              <p>
+                <strong>Email:</strong> {profileData.email}
+              </p>
 
               {!id && (
                 <div className="profile-buttons">
                   <button className="btn-primary" onClick={() => setEditing(true)}>
                     Edit Profile
                   </button>
-                  <button className="btn-secondary" onClick={() => navigate("/my-animes")}>
+                  <button
+                    className="btn-secondary"
+                    onClick={() => navigate("/my-animes")}
+                  >
                     📋 Anime List
                   </button>
-                  <button className="btn-secondary" onClick={() => navigate("/friendlist")}>
+                  <button
+                    className="btn-secondary"
+                    onClick={() => navigate("/friendlist")}
+                  >
                     👥 Friend List
                   </button>
                   <button
@@ -223,15 +241,26 @@ const Dashboard = () => {
                   <p>Select your avatar:</p>
                   <div className="avatar-options">
                     {[
-                      "01.jpg","02.jpg","03.jpg","04.jpg","05.jpg","06.jpg","07.jpg",
-                      "08.jpg","09.jpg","10.jpg","11.jpg","12.jpg","13.jpg"
+                      "01.jpg",
+                      "02.jpg",
+                      "03.jpg",
+                      "04.jpg",
+                      "05.jpg",
+                      "06.jpg",
+                      "07.jpg",
+                      "08.jpg",
+                      "09.jpg",
+                      "10.jpg",
+                      "11.jpg",
+                      "12.jpg",
+                      "13.jpg",
                     ].map((avatar) => (
                       <img
                         key={avatar}
                         className={`avatar-choice ${
                           profileData.avatar.includes(avatar) ? "selected" : ""
                         }`}
-                        src={`/assets/profile-pictures/${avatar}`}
+                        src={getAvatarUrl(avatar)}
                         alt={`Avatar ${avatar}`}
                         onClick={() => handleAvatarSelect(avatar)}
                       />
@@ -312,7 +341,7 @@ const Dashboard = () => {
                       <img
                         src={
                           a.animeId?.image?.replace("../assets", "/assets") ||
-                          "/assets/profile-pictures/placeholder.png"
+                          getAvatarUrl("placeholder.png")
                         }
                         alt={a.animeId?.title || "Anime"}
                       />
